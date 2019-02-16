@@ -15,5 +15,5 @@ services:
     volumes:
       - ./data/worlds:/home/bedrock/bedrock_server/worlds
       - ./data/server.properties:/home/bedrock/bedrock_server/server.properties
-      - ./data/ops.json:/home/bedrock/bedrock_server/ops.json
+      - ./data/permissions.json:/home/bedrock/bedrock_server/permissions.json
       - ./data/whitelist.json:/home/bedrock/bedrock_server/whitelist.json
