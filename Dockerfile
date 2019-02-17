@@ -20,8 +20,8 @@ RUN useradd -ms /bin/bash bedrock
 
 EXPOSE 19132/udp
 
-ADD bedrock_server /home/bedrock/bedrock_server
-RUN su - bedrock -c "mkdir -p bedrock_server/data/worlds"
+COPY bedrock_server /home/bedrock/bedrock_server
+RUN mkdir -p /home/bedrock/bedrock_server/worlds
 RUN chown -R bedrock:bedrock /home/bedrock/bedrock_server
 
 # If you enable the USER below, there will be permission issues with shared volumes
