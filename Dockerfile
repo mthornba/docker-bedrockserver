@@ -11,23 +11,20 @@ CMD ["/sbin/my_init"]
 # ...put your own build instructions here...
 RUN apt-get update
 # RUN apt-get -y upgrade -o Dpkg::Options::="--force-confold"
-RUN apt-get -y install unzip libcurl4 curl nano
-
-RUN useradd -ms /bin/bash bedrock
-RUN su - bedrock -c "mkdir -p bedrock_server/data/worlds"
-RUN chown -R bedrock:bedrock /home/bedrock/bedrock_server/data/worlds
+# RUN apt-get -y install unzip libcurl4 curl
 
 # Clean up apt-get when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN useradd -ms /bin/bash bedrock
+
 EXPOSE 19132/udp
 
-# Entry
-COPY ./startup.sh /home/bedrock
-RUN ["chmod", "+x", "/home/bedrock/startup.sh"]
+ADD bedrock_server /home/bedrock/bedrock_server
+RUN su - bedrock -c "mkdir -p bedrock_server/data/worlds"
+RUN chown -R bedrock:bedrock /home/bedrock/bedrock_server
 
 # If you enable the USER below, there will be permission issues with shared volumes
-# USER bedrock
+USER bedrock
 
-# Added bash so you can drop to a shell to resolve errors
-ENTRYPOINT /home/bedrock/startup.sh && /bin/bash
+ENTRYPOINT cd /home/bedrock/bedrock_server && LD_LIBRARY_PATH=. ./bedrock_server
