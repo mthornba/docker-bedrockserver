@@ -14,3 +14,16 @@ spec:
   #    - name: nfs-pvc
   #      persistentVolumeClaim:
   #        claimName: task-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bedrock-server
+spec:
+  externalIPs:
+  - 192.168.0.114
+  ports:
+  - name: bedrock
+    port: 19132
+    protocol: UDP
+    targetPort: 19132
