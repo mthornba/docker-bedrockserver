@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-bedrock-server
+  labels:
+    app: minecraft
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 192.168.0.9
+    path: "/mnt/HD/HD_a2/kube/bedrock_server"
+  claimRef:
+    namespace: default
+    name: nfs-bedrock-server
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-bedrock-server
+  labels:
+    app: minecraft
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 100Mi
