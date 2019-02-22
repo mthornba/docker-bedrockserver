@@ -4,18 +4,26 @@ The startup script will download and unpack the server software from Mojang's si
 
 Copy the `server.properties.default` file to `server.properties` and edit it to your preferences.  You can put an existing Bedrock world file in the data/worlds folder and point to it using the `level-name=` setting in the server.properties file.
 
+# Build
 Build the docker image first.  Change to the directory containing the Dockerfile and run:
-
 ```
-docker build -t bedrock_server .
+./build.sh
+```
+The script downloads the zip file from Microsoft and extracts it into an image.
+
+# docker-compose
+```
+docker-compose up -d
+```
+# Kubernetes
+
+Create PV & PVC:
+```
+kubectl create -f pv.yaml
 ```
 
-If you are used to using docker-compose, you may be used to using `docker-compose up` **don't do this here**, because you want to attach to the server with an interactive session.
-
-Instead, use:
-
+Create the Deployment & Service:
 ```
-docker-compose run --service-ports --rm bedrock_server
+kubectl create -f bedrock.yaml
 ```
 
-This will also remove the container after running.  Run `docker-compose down` to remove the remaining network setup.  `--service-ports` is required to expose the ports when using `run`.  This command is in the startserver.sh file for convenience.
