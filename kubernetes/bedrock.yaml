@@ -34,6 +34,9 @@ spec:
           - name: nfs-bedrock-server
             mountPath: /home/bedrock/bedrock_server/worlds
             subPath: worlds
+          - name: nfs-bedrock-server
+            mountPath: /home/bedrock/bedrock_server/server.properties
+            subPath: server.properties
       volumes:
       - name: nfs-bedrock-server
         persistentVolumeClaim:
