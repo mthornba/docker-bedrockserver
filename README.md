@@ -11,6 +11,11 @@ Build the docker image first.  Change to the directory containing the Dockerfile
 ```
 The script downloads the zip file from Microsoft and extracts it into an image.
 
+# docker run
+```
+docker run -p 19132:19132/udp -d --rm --name bedrock 192.168.0.114:30500/minecraft/bedrock_server:1.9.0.15
+```
+
 # docker-compose
 ```
 docker-compose up -d
